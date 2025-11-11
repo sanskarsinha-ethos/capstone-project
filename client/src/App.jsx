@@ -480,22 +480,68 @@ const DashboardLayout = ({ onThemeChange }) => {
 };
 
 // If no tenant is selected
-const TenantSelector = () => (
-  <div className="h-screen w-screen bg-gray-900 flex flex-col items-center justify-center text-white p-8">
-    <h1 className="text-5xl font-bold mb-4">Multi-Tenant SaaS Demo</h1>
-    <p className="text-xl text-gray-300 mb-12">Please select a tenant to simulate visiting their unique URL.</p>
-    <div className="flex gap-8">
-      <a href="#/t/acme" className="text-center px-10 py-8 bg-sky-500 text-white rounded-2xl shadow-xl transform hover:scale-105 transition-transform">
-        <h2 className="text-3xl font-bold">Acme Corp</h2>
-        <p className="text-lg font-light">#/t/acme</p>
-      </a>
-      <a href="#/t/globex" className="text-center px-10 py-8 bg-emerald-500 text-white rounded-2xl shadow-xl transform hover:scale-105 transition-transform">
-        <h2 className="text-3xl font-bold">Globex Industries</h2>
-        <p className="text-lg font-light">#/t/globex</p>
-      </a>
+// --- NEW, IMPROVED TENANT SELECTOR (using ?tenant=...) ---
+const TenantSelector = () => {
+  
+  // Helper for the new tenant "cards"
+  const TenantCard = ({ href, name, url, logoText, logoBg }) => (
+    <a 
+      href={href} 
+      className="flex items-center p-6 bg-white border border-gray-200 rounded-2xl shadow-sm transition-all transform hover:shadow-xl hover:-translate-y-1 hover:border-blue-500"
+    >
+      <div 
+        className={`flex-shrink-0 h-16 w-16 flex items-center justify-center rounded-xl text-white text-3xl font-bold ${logoBg}`}
+      >
+        {logoText}
+      </div>
+      <div className="ml-5">
+        <h3 className="text-xl font-semibold text-gray-900">{name}</h3>
+        <p className="text-gray-500">{url}</p>
+      </div>
+      <div className="ml-auto text-gray-400">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </div>
+    </a>
+  );
+
+  return (
+    <div className="h-screen w-screen bg-gray-100 flex items-center justify-center p-8">
+      <div className="w-full max-w-2xl">
+        
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-bold text-gray-900 mb-3">Welcome to your SaaS</h1>
+          <p className="text-lg text-gray-600">Please select your organization to sign in.</p>
+        </div>
+
+        <div className="bg-white p-8 rounded-2xl shadow-2xl border border-gray-200 space-y-6">
+          <TenantCard 
+            href="?tenant=acme"
+            name="Acme Corp"
+            url="acme.saas.com (simulated)"
+            logoText="A"
+            logoBg="bg-sky-500"
+          />
+          <TenantCard 
+            href="?tenant=globex"
+            name="Globex Industries"
+            url="globex.saas.com (simulated)"
+            logoText="G"
+            logoBg="bg-emerald-500"
+          />
+        </div>
+
+        <div className="text-center mt-8">
+          <p className="text-gray-500 text-sm">
+            This is a multi-tenant application demo. <br/> Each organization has its own isolated data and theme.
+          </p>
+        </div>
+
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 
 // --- Main App Component ---
