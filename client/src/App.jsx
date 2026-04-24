@@ -465,7 +465,7 @@ const DashboardLayout = ({ onThemeChange }) => {
         return <DashboardContent />;
     }
   };
-
+///changed
   return (
     <div className="flex flex-col h-screen w-full" style={{ backgroundColor: 'var(--background-color)', color: 'var(--text-color)' }}>
       <Header />
